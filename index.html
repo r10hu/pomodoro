@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>50:00 · Focus</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%230b1c22'/><circle cx='32' cy='32' r='20' fill='none' stroke='%235b5866' stroke-width='7'/><circle cx='32' cy='32' r='20' fill='none' stroke='%23b4afd0' stroke-width='7' stroke-dasharray='94 126' transform='rotate(-90 32 32)'/></svg>">
+  <!-- Google Material Symbols Outlined (Exact CDN Link) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+
+  <!-- Main Stylesheet (Color scheme variables are right at the top of styles.css) -->
+  <link rel="stylesheet" href="styles.css?v=2">
+
+  <!-- Modular App Scripts (order matters: config -> theme -> audio -> timer -> app) -->
+  <script defer src="config.js"></script>
+  <script defer src="theme.js"></script>
+  <script defer src="audio.js"></script>
+  <script defer src="timer.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <!-- Top-Right Corner Controls -->
+  <header class="top-controls" aria-label="Quick controls">
+    <button
+      type="button"
+      id="music-toggle-btn"
+      class="icon-btn"
+      aria-label="Turn background music off"
+      title="Music: On"
+    >
+      <span id="music-toggle-icon" class="material-symbols-outlined">music_note</span>
+    </button>
+    <button
+      type="button"
+      id="theme-toggle-btn"
+      class="icon-btn"
+      aria-label="Switch to Light Mode"
+      title="Switch to Light Mode"
+    >
+      <span id="theme-toggle-icon" class="material-symbols-outlined">light_mode</span>
+    </button>
+    <button
+      type="button"
+      id="settings-open-btn"
+      class="icon-btn"
+      aria-label="Open settings"
+      title="Settings"
+    >
+      <span class="material-symbols-outlined icon-rotate-90">tune</span>
+    </button>
+  </header>
+
+  <!-- Main Screen: Two-Column Layout -->
+  <main class="main-view">
+    <!-- Left Column: Local Artwork (Click to toggle Light / Dark mode) -->
+    <section class="artwork-column" aria-label="Artwork and theme switcher">
+      <button
+        type="button"
+        id="artwork-toggle-theme"
+        class="artwork-button"
+        title="Click artwork to switch Light / Dark mode"
+        aria-label="Toggle Light and Dark mode"
+      >
+        <img
+          id="main-artwork"
+          class="artwork-image"
+          src="assets/img/pixel-castle.svg"
+          alt="Pomodoro artwork"
+        >
+      </button>
+    </section>
+
+    <!-- Right Column: Circular Progress Ring + Countdown -->
+    <section id="timer-column" class="timer-column" aria-label="Pomodoro timer">
+      <div
+        id="timer-ring-btn"
+        class="timer-ring-wrapper"
+        role="button"
+        tabindex="0"
+        title="Click to start or pause · Double-click to reset"
+        aria-label="Start or pause timer"
+      >
+        <svg class="timer-svg" viewBox="0 0 320 320" aria-hidden="true">
+          <circle class="ring-track" cx="160" cy="160" r="136"></circle>
+          <circle id="ring-progress" class="ring-progress" cx="160" cy="160" r="136"></circle>
+        </svg>
+
+        <div class="timer-center">
+          <div id="timer-display" class="timer-display">50:00</div>
+          <div id="timer-status-pill" class="timer-status-pill">Focus</div>
+        </div>
+      </div>
+
+      <!-- Uncluttered hover-only Reset & Skip controls -->
+      <div class="timer-secondary-controls" aria-label="Timer session actions">
+        <button type="button" id="timer-reset-btn" class="subtle-pill-btn">Reset</button>
+        <button type="button" id="timer-skip-btn" class="subtle-pill-btn">Skip</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Settings Screen: Full-Screen Bento-Grid Overlay -->
+  <div
+    id="settings-overlay"
+    class="settings-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-label="Pomodoro Settings"
+  >
+    <div class="bento-grid">
+      <!-- Top-Right Close (X) Button -->
+      <div class="bento-close-slot">
+        <button
+          type="button"
+          id="settings-close-btn"
+          class="icon-btn close-btn"
+          aria-label="Close settings"
+          title="Close (Esc)"
+        >
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <!-- 1. Station List Card -->
+      <section class="bento-card card-stations" aria-labelledby="stations-heading">
+        <h2 id="stations-heading" class="card-title">Station list</h2>
+        <ul id="station-list" class="station-list"></ul>
+        <p id="station-status-note" class="station-status-note" aria-live="polite"></p>
+      </section>
+
+      <!-- 2. Timer Duration Card -->
+      <section class="bento-card card-durations" aria-label="Session durations">
+        <div class="duration-group">
+          <label for="focus-duration-input" class="duration-label">Focus</label>
+          <input
+            type="text"
+            id="focus-duration-input"
+            class="duration-input"
+            value="50:00"
+            inputmode="numeric"
+            aria-label="Focus duration in minutes and seconds"
+          >
+        </div>
+
+        <div class="duration-group">
+          <label for="break-duration-input" class="duration-label">Break</label>
+          <input
+            type="text"
+            id="break-duration-input"
+            class="duration-input"
+            value="10:00"
+            inputmode="numeric"
+            aria-label="Break duration in minutes and seconds"
+          >
+        </div>
+      </section>
+
+      <!-- 3. Tick Toggle Card -->
+      <section class="bento-card card-tick" aria-label="Clock ticking sound">
+        <label for="tick-toggle-input" class="tick-label">Tick</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="tick-toggle-input" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </section>
+
+      <!-- 4. State-Based Radio Card -->
+      <section class="bento-card card-radios" aria-label="State-based radio selectors">
+        <div class="radio-group">
+          <label for="focus-radio-select" class="radio-group-label">Focus Radio</label>
+          <select id="focus-radio-select" class="bento-select"></select>
+        </div>
+
+        <div class="radio-group">
+          <label for="break-radio-select" class="radio-group-label">Break Radio</label>
+          <select id="break-radio-select" class="bento-select"></select>
+        </div>
+
+        <div class="radio-group">
+          <label for="pause-radio-select" class="radio-group-label">Pause Radio</label>
+          <select id="pause-radio-select" class="bento-select"></select>
+        </div>
+      </section>
+
+      <!-- 5. Image Select Card -->
+      <section class="bento-card card-images" aria-labelledby="image-select-heading">
+        <h2 id="image-select-heading" class="card-title">Image select</h2>
+        <select id="image-select" class="bento-select" aria-label="Choose display artwork"></select>
+      </section>
+
+      <!-- 6. Mode Switch Card (Auto / Manual) -->
+      <section class="bento-card card-modes" aria-label="Timer cycle mode">
+        <button
+          type="button"
+          id="mode-auto-btn"
+          class="mode-btn mode-btn-auto is-active"
+          aria-pressed="true"
+        >
+          Auto
+        </button>
+        <button
+          type="button"
+          id="mode-manual-btn"
+          class="mode-btn mode-btn-manual"
+          aria-pressed="false"
+        >
+          Manual
+        </button>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

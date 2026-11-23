@@ -1,0 +1,816 @@
+/* ==========================================================================
+   1. COLOR SCHEME — LIGHT & DARK MODE VARIABLES
+   ==========================================================================
+   Edit any hex color below to restyle the whole app without touching code.
+   ========================================================================== */
+
+:root,
+[data-theme="dark"] {
+  /* Page & Card Backgrounds */
+  --bg-page: #0b1c22;               /* Main full-screen background color */
+  --bg-card: #1a3338;               /* Rounded cards on the Settings screen */
+  --bg-card-hover: #224147;         /* Hover highlight on clickable items */
+  --bg-input: #13282d;              /* Dropdown boxes & editable timer fields */
+  --border-subtle: rgba(255, 255, 255, 0.08); /* Soft outlines on inputs */
+
+  /* Text & Icon Colors */
+  --text-primary: #eef4f5;          /* Main headings and labels */
+  --text-secondary: #9bb3b8;        /* Smaller hints, dropdown arrows, status text */
+  --icon-color: #dce6e8;            /* Top-right Music, Settings, and Close (X) icons */
+
+  /* Circular Timer & Progress Ring */
+  --ring-track: #5b5866;            /* Unfilled circular ring track */
+  --ring-progress-focus: #b4afd0;   /* Clockwise progress arc during Focus */
+  --ring-progress-break: #7ac4a2;   /* Clockwise progress arc during Break */
+  --timer-text: #b4afd0;            /* Big countdown numbers inside the ring */
+  --timer-text-break: #8fd4b5;      /* Countdown numbers while in Break mode */
+
+  /* Station List Active Highlight */
+  --station-active-bg: #25484f;     /* Background of the currently playing station */
+  --station-active-accent: #7ac4a2; /* Accent dot/border for the active station */
+
+  /* Tick Toggle Switch */
+  --tick-track-off: #2c474d;        /* Tick switch background when OFF */
+  --tick-track-on: #52b855;         /* Tick switch background when ON */
+  --tick-knob: #eef4f5;             /* Round sliding circle inside the Tick switch */
+
+  /* Auto / Manual Mode Buttons */
+  --btn-auto-bg: #7c3540;           /* Auto button fill color */
+  --btn-auto-border: #a34d5b;       /* Auto button outline color */
+  --btn-manual-bg: #553078;         /* Manual button fill color */
+  --btn-manual-border: #7d4da8;     /* Manual button outline color */
+  --btn-mode-text: #f5f2f7;         /* Text color inside Auto / Manual buttons */
+
+  /* Soft Shadows */
+  --shadow-card: 0 10px 28px rgba(0, 0, 0, 0.24);
+}
+
+[data-theme="light"] {
+  /* Page & Card Backgrounds */
+  --bg-page: #f3f1ec;               /* Warm off-white page background */
+  --bg-card: #e5e1d8;               /* Soft sand cards on the Settings screen */
+  --bg-card-hover: #dad4c9;         /* Hover highlight on clickable items */
+  --bg-input: #faf9f6;              /* Dropdown boxes & editable timer fields */
+  --border-subtle: rgba(20, 40, 45, 0.12); /* Soft outlines on inputs */
+
+  /* Text & Icon Colors */
+  --text-primary: #1d2e33;          /* Main headings and labels */
+  --text-secondary: #566b70;        /* Smaller hints, dropdown arrows, status text */
+  --icon-color: #263b40;            /* Top-right Music, Settings, and Close (X) icons */
+
+  /* Circular Timer & Progress Ring */
+  --ring-track: #d4cfde;            /* Unfilled circular ring track */
+  --ring-progress-focus: #685c94;   /* Clockwise progress arc during Focus */
+  --ring-progress-break: #3b8a6b;   /* Clockwise progress arc during Break */
+  --timer-text: #4a406b;            /* Big countdown numbers inside the ring */
+  --timer-text-break: #2d7358;      /* Countdown numbers while in Break mode */
+
+  /* Station List Active Highlight */
+  --station-active-bg: #d1ddd7;     /* Background of the currently playing station */
+  --station-active-accent: #3b8a6b; /* Accent dot/border for the active station */
+
+  /* Tick Toggle Switch */
+  --tick-track-off: #bfb9ae;        /* Tick switch background when OFF */
+  --tick-track-on: #3ea342;         /* Tick switch background when ON */
+  --tick-knob: #ffffff;             /* Round sliding circle inside the Tick switch */
+
+  /* Auto / Manual Mode Buttons */
+  --btn-auto-bg: #963f4d;           /* Auto button fill color */
+  --btn-auto-border: #ba5868;       /* Auto button outline color */
+  --btn-manual-bg: #653c8c;         /* Manual button fill color */
+  --btn-manual-border: #895ab5;     /* Manual button outline color */
+  --btn-mode-text: #ffffff;         /* Text color inside Auto / Manual buttons */
+
+  /* Soft Shadows */
+  --shadow-card: 0 8px 24px rgba(24, 38, 42, 0.08);
+}
+
+/* ==========================================================================
+   2. BASE RESET & TYPOGRAPHY
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Google Material Symbols styling */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  user-select: none;
+  line-height: 1;
+}
+
+/* Rotate the "tune" icon 90 degrees so sliders stand vertically like the mockup */
+.icon-rotate-90 {
+  display: inline-block;
+  transform: rotate(90deg);
+}
+
+/* ==========================================================================
+   3. TOP-RIGHT ACTION ICONS (Music On/Off + Settings)
+   ========================================================================== */
+
+.top-controls {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 20;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--icon-color);
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, background-color 0.3s ease, color 0.3s ease, transform 0.15s ease;
+}
+
+.icon-btn:hover {
+  opacity: 1;
+  background-color: var(--bg-card);
+}
+
+.icon-btn:active {
+  transform: scale(0.94);
+}
+
+.icon-btn .material-symbols-outlined {
+  font-size: 28px;
+}
+
+.icon-btn.is-muted {
+  opacity: 0.45;
+}
+
+/* ==========================================================================
+   4. MAIN SCREEN — TWO-COLUMN LAYOUT
+   ========================================================================== */
+
+.main-view {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 48px;
+}
+
+/* Left Side: Artwork (Clicking toggles Light / Dark mode) */
+.artwork-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.artwork-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 440px;
+  width: 100%;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.artwork-button:hover {
+  transform: scale(1.018);
+}
+
+.artwork-button:active {
+  transform: scale(0.985);
+}
+
+.artwork-image {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  max-height: 68vh;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+
+  /* Keeps pixel-art artwork crisp when scaled up.
+     Change "pixelated" to "auto" below if you use smooth photos or paintings. */
+  image-rendering: pixelated;
+}
+
+/* Right Side: Circular Progress Ring + Countdown */
+.timer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.timer-ring-wrapper {
+  position: relative;
+  width: min(390px, 78vw);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 50%;
+  transition: transform 0.18s ease;
+}
+
+.timer-ring-wrapper:active {
+  transform: scale(0.985);
+}
+
+.timer-svg {
+  width: 100%;
+  height: 100%;
+  /* Start the progress arc at 12 o'clock so it sweeps clockwise */
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.ring-track {
+  fill: none;
+  stroke: var(--ring-track);
+  stroke-width: 24;
+  transition: stroke 0.3s ease;
+}
+
+.ring-progress {
+  fill: none;
+  stroke: var(--ring-progress-focus);
+  stroke-width: 24;
+  stroke-linecap: butt;
+  transition: stroke 0.3s ease;
+}
+
+.timer-column.is-break .ring-progress {
+  stroke: var(--ring-progress-break);
+}
+
+.timer-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.timer-display {
+  font-size: clamp(3rem, 6.2vw, 4.7rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--timer-text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.05;
+  transition: color 0.3s ease, opacity 0.25s ease;
+}
+
+.timer-column.is-break .timer-display {
+  color: var(--timer-text-break);
+}
+
+/* Subtle session label shown gently under the numbers */
+.timer-status-pill {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0.72;
+  transition: opacity 0.25s ease, color 0.3s ease;
+}
+
+/* Subtle hover-only secondary controls (Reset / Skip) beneath the ring */
+.timer-secondary-controls {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.timer-column:hover .timer-secondary-controls,
+.timer-column:focus-within .timer-secondary-controls,
+.timer-column.is-paused-midway .timer-secondary-controls {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.subtle-pill-btn {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.subtle-pill-btn:hover {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border-color: transparent;
+}
+
+/* ==========================================================================
+   5. SETTINGS OVERLAY — BENTO-GRID CARD LAYOUT
+   ========================================================================== */
+
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-page);
+  z-index: 50;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s ease, visibility 0.22s ease, background-color 0.3s ease;
+}
+
+.settings-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Desktop 3-column Bento Grid matching the mockup layout */
+.bento-grid {
+  width: 100%;
+  max-width: 960px;
+  display: grid;
+  grid-template-columns: 1.32fr 0.86fr 1.12fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "stations durations closebtn"
+    "stations durations radios"
+    "stations tick      radios"
+    "images   modes     modes";
+  gap: 20px;
+  align-items: stretch;
+}
+
+.bento-close-slot {
+  grid-area: closebtn;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-bottom: 4px;
+}
+
+.close-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+}
+
+.close-btn .material-symbols-outlined {
+  font-size: 36px;
+  font-weight: 500;
+}
+
+.bento-card {
+  background-color: var(--bg-card);
+  border-radius: 20px;
+  padding: 24px 26px;
+  box-shadow: var(--shadow-card);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-title {
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+/* Card 1: Station List */
+/* Card 1: Station List */
+.card-stations {
+  grid-area: stations;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.station-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  max-height: 235px;        /* Keeps the box compact so adjacent cards stay unstretched */
+  overflow-y: auto;         /* Scrolls cleanly inside the Station list box */
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-card-hover) transparent;
+}
+
+.station-list li {
+  flex-shrink: 0;
+}
+
+/* Subtle scrollbar styling (Chrome, Edge, Safari) */
+.station-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.station-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.station-list::-webkit-scrollbar-thumb {
+  background-color: var(--bg-card-hover);
+  border-radius: 999px;
+}
+
+.station-item-btn {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+}
+
+.station-item-btn:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.station-item-btn:active {
+  transform: scale(0.99);
+}
+
+.station-item-btn.is-active {
+  background-color: var(--station-active-bg);
+  border-color: var(--station-active-accent);
+}
+
+.station-name-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.station-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--station-active-accent);
+  opacity: 0;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+
+.station-item-btn.is-active .station-dot {
+  opacity: 1;
+}
+
+.station-badge {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.station-status-note {
+  margin-top: 14px;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  min-height: 1.2em;
+}
+
+/* Card 2: Timer Durations (Focus / Break) */
+.card-durations {
+  grid-area: durations;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  text-align: center;
+}
+
+.duration-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.duration-label {
+  font-size: 1.38rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.duration-input {
+  width: 100%;
+  max-width: 150px;
+  text-align: center;
+  font-size: 1.85rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 6px 10px;
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.duration-input:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.duration-input:focus {
+  outline: none;
+  background-color: var(--bg-input);
+  border-color: var(--ring-progress-focus);
+}
+
+/* Card 3: Tick Toggle */
+.card-tick {
+  grid-area: tick;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 24px;
+}
+
+.tick-label {
+  font-size: 1.35rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 68px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  background-color: var(--tick-track-off);
+  border-radius: 999px;
+  transition: background-color 0.25s ease;
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  left: 5px;
+  top: 5px;
+  border-radius: 50%;
+  background-color: var(--tick-knob);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s ease;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: var(--tick-track-on);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(32px);
+}
+
+.toggle-switch input:focus-visible + .toggle-slider {
+  outline: 2px solid var(--ring-progress-focus);
+  outline-offset: 2px;
+}
+
+/* Card 4: State-Based Radio Dropdowns */
+.card-radios {
+  grid-area: radios;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.radio-group-label {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bento-select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 10px 36px 10px 14px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%),
+    linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.bento-select:hover {
+  border-color: var(--text-secondary);
+}
+
+.bento-select:focus {
+  outline: none;
+  border-color: var(--ring-progress-focus);
+}
+
+/* Card 5: Image Select */
+.card-images {
+  grid-area: images;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.card-images .card-title {
+  margin-bottom: 0;
+}
+
+/* Card 6: Auto / Manual Mode Switch */
+.card-modes {
+  grid-area: modes;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 22px;
+}
+
+.mode-btn {
+  padding: 16px 20px;
+  border-radius: 14px;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--btn-mode-text);
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: 0.42;
+  transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.mode-btn:hover {
+  opacity: 0.78;
+}
+
+.mode-btn:active {
+  transform: scale(0.97);
+}
+
+.mode-btn-auto {
+  background-color: var(--btn-auto-bg);
+  border-color: var(--btn-auto-border);
+}
+
+.mode-btn-manual {
+  background-color: var(--btn-manual-bg);
+  border-color: var(--btn-manual-border);
+}
+
+.mode-btn.is-active {
+  opacity: 1;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================================================
+   6. RESPONSIVE DESIGN (Tablets & Mobile Screens)
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  .main-view {
+    grid-template-columns: 1fr;
+    padding: 72px 24px 40px;
+    gap: 32px;
+    align-content: center;
+  }
+
+  .artwork-image {
+    max-width: 300px;
+    max-height: 38vh;
+  }
+
+  .timer-ring-wrapper {
+    width: min(310px, 76vw);
+  }
+
+  .timer-secondary-controls {
+    opacity: 0.85;
+    transform: none;
+  }
+
+  .settings-overlay {
+    align-items: flex-start;
+    padding: 20px 16px 36px;
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "closebtn"
+      "durations"
+      "tick"
+      "modes"
+      "stations"
+      "radios"
+      "images";
+    gap: 16px;
+  }
+
+  .card-durations {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
