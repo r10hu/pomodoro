@@ -1,0 +1,62 @@
+[
+  {
+    "id": "img1",
+    "label": "Img1",
+    "path": "assets/img/img1.webp"
+  },
+  {
+    "id": "img2",
+    "label": "Img2",
+    "path": "assets/img/img2.webp"
+  },
+  {
+    "id": "img3",
+    "label": "Img3",
+    "path": "assets/img/img3.webp"
+  },
+  {
+    "id": "img4",
+    "label": "Img4",
+    "path": "assets/img/img4.webp"
+  },
+  {
+    "id": "img5",
+    "label": "Img5",
+    "path": "assets/img/img5.webp"
+  },
+  {
+    "id": "img6",
+    "label": "Img6",
+    "path": "assets/img/img6.webp"
+  },
+  {
+    "id": "img7",
+    "label": "Img7",
+    "path": "assets/img/img7.webp"
+  },
+  {
+    "id": "img8",
+    "label": "Img8",
+    "path": "assets/img/img8.webp"
+  },
+  {
+    "id": "img9",
+    "label": "Img9",
+    "path": "assets/img/img9.png"
+  },
+  {
+    "id": "pixel-castle",
+    "label": "Pixel Castle",
+    "path": "assets/img/pixel-castle.svg"
+  },
+  {
+    "id": "pixel-desk",
+    "label": "Pixel Desk",
+    "path": "assets/img/pixel-desk.svg"
+  },
+  {
+    "id": "pixel-tea",
+    "label": "Pixel Tea",
+    "path": "assets/img/pixel-tea.svg"
+  }
+]
