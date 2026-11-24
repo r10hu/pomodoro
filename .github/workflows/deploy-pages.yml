@@ -1,29 +1,23 @@
 name: Scan Images and Deploy to GitHub Pages
 
 on:
-  # Runs automatically whenever you push or upload files on your main branch
   push:
     branches: ["main", "master"]
-  # Also adds a manual "Run workflow" button inside the GitHub Actions tab
   workflow_dispatch:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
-# Queue deployments cleanly if multiple uploads happen close together
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,10 +29,17 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Upload site files for Pages
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: "."
 
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
