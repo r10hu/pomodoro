@@ -120,6 +120,11 @@ window.POMODORO_CONFIG = {
       name: "Nightride · Chillsynth",
       url: "https://stream.nightride.fm/chillsynth.ogg",
     },
+    {
+      id: "smooth-jazz",
+      name: "SMOOTH JAZZ DELUXE",
+      url: "https://cast1.torontocast.com:4490/;",
+    },
     // Want more stations? Copy one of the blocks above and give it a unique id!
   ],
 
