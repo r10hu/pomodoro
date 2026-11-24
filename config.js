@@ -125,6 +125,31 @@ window.POMODORO_CONFIG = {
       name: "SMOOTH JAZZ DELUXE",
       url: "https://cast1.torontocast.com:4490/stream",
     },
+   {
+      id: "whisperings-piano",
+      name: "WHISPERINGS SOLO PIANO",
+      url: "https://pianosolo.streamguys1.com/live",
+    },
+    {
+      id: "positively-piano",
+      name: "POSITIVELY PIANO",
+      url: "https://streaming.positivity.radio/pr/piano/icecast.audio",
+    },
+    {
+      id: "radioart-solo-piano",
+      name: "RADIO ART SOLO PIANO",
+      url: "https://live.radioart.com/fSolo_piano.mp3",
+    },
+    {
+      id: "radioart-ambient-piano",
+      name: "RADIO ART AMBIENT PIANO",
+      url: "https://live.radioart.com/fAmbient_piano.mp3",
+    },
+    {
+      id: "rautemusik-solopiano",
+      name: "RM.FM SOLO PIANO",
+      url: "https://rautemusik-de-hz-fal-stream14.radiohost.de/solopiano",
+    },
     // Want more stations? Copy one of the blocks above and give it a unique id!
   ],
 
