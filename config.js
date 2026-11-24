@@ -175,6 +175,16 @@ window.POMODORO_CONFIG = {
       name: "RADIO ART SLEEP & RELAX",
       url: "https://live.radioart.com/fSleep.mp3",
     },
+   {
+      id: "carnatic-classical",
+      name: "Carnatic Classical Radio",
+      url: "https://stream.zeno.fm/kx5mhbmxum0uv",
+    },
+   {
+      id: "Classical-Hindustani",
+      name: "Classical Hindustani",
+      url: "https://stream.zeno.fm/nxy4eaynvy8uv",
+    },
     // Want more stations? Copy one of the blocks above and give it a unique id!
   ],
 
