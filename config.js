@@ -123,7 +123,7 @@ window.POMODORO_CONFIG = {
     {
       id: "smooth-jazz",
       name: "SMOOTH JAZZ DELUXE",
-      url: "https://cast1.torontocast.com:4490/;",
+      url: "https://cast1.torontocast.com:4490/stream",
     },
     // Want more stations? Copy one of the blocks above and give it a unique id!
   ],
