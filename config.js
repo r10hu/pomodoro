@@ -150,7 +150,7 @@ window.POMODORO_CONFIG = {
       name: "RM.FM SOLO PIANO",
       url: "https://rautemusik-de-hz-fal-stream14.radiohost.de/solopiano",
     },
-     {
+    {
       id: "soma-drone-zone",
       name: "SOMAFM DRONE ZONE",
       url: "https://ice1.somafm.com/dronezone-128-mp3",
