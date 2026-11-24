@@ -150,6 +150,31 @@ window.POMODORO_CONFIG = {
       name: "RM.FM SOLO PIANO",
       url: "https://rautemusik-de-hz-fal-stream14.radiohost.de/solopiano",
     },
+     {
+      id: "soma-drone-zone",
+      name: "SOMAFM DRONE ZONE",
+      url: "https://ice1.somafm.com/dronezone-128-mp3",
+    },
+    {
+      id: "soma-deepspace",
+      name: "SOMAFM DEEP SPACE ONE",
+      url: "https://ice1.somafm.com/deepspaceone-128-mp3",
+    },
+    {
+      id: "soma-groove-salad",
+      name: "SOMAFM GROOVE SALAD",
+      url: "https://ice1.somafm.com/groovesalad-128-mp3",
+    },
+    {
+      id: "box-lofi",
+      name: "BOX RADIO LO-FI BEATS",
+      url: "https://play.streamafrica.net/lofiradio",
+    },
+    {
+      id: "radioart-sleep",
+      name: "RADIO ART SLEEP & RELAX",
+      url: "https://live.radioart.com/fSleep.mp3",
+    },
     // Want more stations? Copy one of the blocks above and give it a unique id!
   ],
 
